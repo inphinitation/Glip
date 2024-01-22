@@ -22,22 +22,22 @@
     </div>
 
     <div id="main-container">
-    	<div id="colorModal" class="modal">
-    		<div class="modal-content">
-    			<span class="close">&times;</span>
-    			<input type="color" id="modalColorPicker">
-    			<input type="text" id="modalColorName" placeholder="Color name">
-    			<button class="control-button" id="saveColor">Save</button>
-    		</div>
-    	</div>
+        <div id="colorModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <input type="color" id="modalColorPicker">
+                <input type="text" id="modalColorName" placeholder="Color name">
+                <button class="control-button" id="saveColor">Save</button>
+            </div>
+        </div>
         <div id="sidebar-left">
             <div class="sidebar-row">
                 <div class="palette-controls">
                     <div class="palette-controls">
-                    	<button class="control-button" id="save-colors">Save</button>
-                    	<button class="control-button" id="load-colors">Load</button>
-                    	<button class="control-button" id="add-color">+</button>
-                    	<button class="control-button" id="remove-color">-</button>
+                        <button class="control-button" id="save-colors">Save</button>
+                        <button class="control-button" id="load-colors">Load</button>
+                        <button class="control-button" id="add-color">+</button>
+                        <button class="control-button" id="remove-color">-</button>
                     </div>
                 </div>
                 <div id="color-grid"></div>
@@ -50,20 +50,26 @@
         </div>
         <div id="sidebar-right">
             <div class="sidebar-row">
-            	<div class="tile-controls">
-            		<button class="control-button" id="add-tile">Add Tile</button>
-            		<button class="control-button" id="remove-tile">Remove Tile</button>
-            	</div>
-            	<div id="tile-grid"></div>
-        	</div>
+                <div class="tile-controls">
+                    <button class="control-button" id="add-tile">Add Tile</button>
+                    <button class="control-button" id="remove-tile">Remove Tile</button>
+                </div>
+                <div id="tile-grid"></div>
+            </div>
             <div class="sidebar-row">Right Sidebar Bottom</div>
         </div>
     </div>
 
     <input type="file" id="file-input" style="display: none;" accept=".jsonl">
 
+    <script>
+        // Globals
+        window.tileData = {};
+    </script>
+
     <script src="index.js"></script>
     <script src="colorPalette.js"></script>
     <script src="tilePicker.js"></script>
+    <script src="canvas.js"></script>
 </body>
 </html>

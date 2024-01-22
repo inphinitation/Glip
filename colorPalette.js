@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         selectedSquare = square;
         selectedSquare.classList.add('selected');
+        window.setSelectedColor(square.style.backgroundColor);
     }
 
     function removeSelectedColorSquare() {

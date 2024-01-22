@@ -2,45 +2,43 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('add-tile').addEventListener('click', addTile);    
     document.getElementById('remove-tile').addEventListener('click', removeSelectedTile);
 
-    let selectedTile = null;
-    let tileData = {};
-
     function addTile() {
         const tile = document.createElement('div');
         tile.className = 'tile';
-
         const id = Date.now().toString();
         tile.dataset.id = id;
-        tileData[id] = {};
+
+        const tileSize = 16;
+        window.tileData[id] = {
+            pixels: Array(tileSize).fill().map(() => Array(tileSize).fill('#FFFFFF'))
+        };
+
+        const previewCanvas = document.createElement('canvas');
+        previewCanvas.width = 32;
+        previewCanvas.height = 32;
+        tile.appendChild(previewCanvas);
 
         tile.addEventListener('click', () => selectTile(tile));
         document.getElementById('tile-grid').appendChild(tile);
+
+        renderTilePreview(id, previewCanvas);
     }
 
     function selectTile(tile) {
-        if (selectedTile) {
-            selectedTile.classList.remove('selected');
+        if (window.selectedTile) {
+            window.selectedTile.classList.remove('selected');
         }
-        selectedTile = tile;
-        selectedTile.classList.add('selected');
-        renderTileOnCanvas(selectedTile);
+        window.selectedTile = tile;
+        tile.classList.add('selected');
+        window.setSelectedTile(tile);
+        window.renderTileOnCanvas(tile);
     }
 
     function removeSelectedTile() {
-        if (selectedTile) {
-            delete tileData[selectedTile.dataset.id];
-            selectedTile.remove();
-            selectedTile = null;
+        if (window.selectedTile) {
+            delete window.tileData[window.selectedTile.dataset.id];
+            window.selectedTile.remove();
+            window.selectedTile = null;
         }
-    }
-
-    function renderTileOnCanvas(tile) {
-        const canvas = document.getElementById('pixelCanvas');
-        const ctx = canvas.getContext('2d');
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = 'gray';
-        ctx.fillRect(0, 0, 60, 60);
     }
 });
