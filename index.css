@@ -1,0 +1,226 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#menubar {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menubar-section {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+#menubar button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#menubar button:hover {
+    background-color: #777;
+}
+
+#logo {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: white;
+    text-shadow: 2px 2px #000;
+}
+
+#main-container {
+    display: flex;
+    flex-grow: 1;
+}
+
+#viewport {
+    background-color: #f0f0f0;
+    flex-grow: 2;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#sidebar-left, #sidebar-right {
+    background-color: #ddd;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sidebar-row {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.sidebar-row:last-child {
+    border-bottom: none;
+}
+
+#pixelCanvas {
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.control-button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.control-button:hover {
+    background-color: #777;
+}
+
+.palette-controls {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.palette-controls button {
+    flex-grow: 1;
+    margin: 0 2px;
+}
+
+#color-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 2px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.color-square {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.color-square.selected {
+    border: 2px solid blue;
+}
+
+#edit-color {
+    padding: 6px 10px;
+    font-size: 14px;
+    margin: 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #555;
+    color: white;
+    border: none;
+    display: block;
+    width: 100%;
+}
+
+#edit-color:hover {
+    background-color: #777;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+    max-width: 80%;
+}
+
+#modalColorPicker, #modalColorName {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: black;
+}
+
+#tile-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 2px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.tile {
+    width: 60px;
+    height: 60px;
+    margin: 2px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.tile.selected {
+    border: 2px solid green;
+}

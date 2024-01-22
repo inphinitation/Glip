@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Glip v0.0.1a</title>
+</head>
+<body>
+    <div id="menubar">
+        <div class="menubar-section">
+            <button id="save-project">Save Project</button>
+            <button id="open-project">Open Project</button>
+            <button id="new-project">New Project</button>
+            <button id="export">Export</button>
+        </div>
+        <div class="menubar-section" id="logo">
+            Glip
+        </div>
+        <div class="menubar-section"></div>
+    </div>
+
+    <div id="main-container">
+    	<div id="colorModal" class="modal">
+    		<div class="modal-content">
+    			<span class="close">&times;</span>
+    			<input type="color" id="modalColorPicker">
+    			<input type="text" id="modalColorName" placeholder="Color name">
+    			<button class="control-button" id="saveColor">Save</button>
+    		</div>
+    	</div>
+        <div id="sidebar-left">
+            <div class="sidebar-row">
+                <div class="palette-controls">
+                    <div class="palette-controls">
+                    	<button class="control-button" id="save-colors">Save</button>
+                    	<button class="control-button" id="load-colors">Load</button>
+                    	<button class="control-button" id="add-color">+</button>
+                    	<button class="control-button" id="remove-color">-</button>
+                    </div>
+                </div>
+                <div id="color-grid"></div>
+                <button class="control-button" id="edit-color">Edit Color</button>
+            </div>
+            <div class="sidebar-row">Left Sidebar Bottom</div>
+        </div>
+        <div id="viewport">
+            <canvas id="pixelCanvas"></canvas>
+        </div>
+        <div id="sidebar-right">
+            <div class="sidebar-row">
+            	<div class="tile-controls">
+            		<button class="control-button" id="add-tile">Add Tile</button>
+            		<button class="control-button" id="remove-tile">Remove Tile</button>
+            	</div>
+            	<div id="tile-grid"></div>
+        	</div>
+            <div class="sidebar-row">Right Sidebar Bottom</div>
+        </div>
+    </div>
+
+    <input type="file" id="file-input" style="display: none;" accept=".jsonl">
+
+    <script src="index.js"></script>
+    <script src="colorPalette.js"></script>
+    <script src="tilePicker.js"></script>
+</body>
+</html>
