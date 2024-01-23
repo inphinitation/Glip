@@ -8,20 +8,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = Date.now().toString();
         tile.dataset.id = id;
 
-        const tileSize = 16;
-        window.tileData[id] = {
-            pixels: Array(tileSize).fill().map(() => Array(tileSize).fill('#FFFFFF'))
-        };
-
         const previewCanvas = document.createElement('canvas');
-        previewCanvas.width = 32;
-        previewCanvas.height = 32;
         tile.appendChild(previewCanvas);
 
         tile.addEventListener('click', () => selectTile(tile));
         document.getElementById('tile-grid').appendChild(tile);
 
+        updateCanvasSize(previewCanvas, tile);
+        window.addEventListener('resize', () => updateCanvasSize(previewCanvas, tile))
+
+        const tileSize = 16;
+        window.tileData[id] = {
+            pixels: Array(tileSize).fill().map(() => Array(tileSize).fill('#FFFFFF'))
+        };
+
         renderTilePreview(id, previewCanvas);
+    }
+
+    function updateCanvasSize(canvas, tile) {
+        const rect = tile.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        const tileId = tile.dataset.id;
+        if (tileId && window.tileData[tileId]) {
+            renderTilePreview(tileId, canvas);
+        }
     }
 
     function selectTile(tile) {

@@ -219,6 +219,15 @@ body, html {
     margin: 2px;
     border: 1px solid #000;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.tile canvas {
+    width: 100%;
+    height: 100%;
 }
 
 .tile.selected {

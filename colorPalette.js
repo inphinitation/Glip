@@ -1,13 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     const colorGrid = document.getElementById('color-grid');
     let selectedSquare = null;
-    let colorData = {};
 
-    document.getElementById('add-color').addEventListener('click', () => addColorSquare('#FFFFFF', 'New Color'));
+    document.getElementById('add-color').addEventListener('click', () => selectColorSquare(addColorSquare('#FFFFFF', 'New Color')));
     document.getElementById('remove-color').addEventListener('click', removeSelectedColorSquare);
     document.getElementById('edit-color').addEventListener('click', openModalForEditing);
 
-    function addColorSquare(color, name) {
+    function addColorSquare(color, initialName) {
+        let name = initialName;
+        let baseName = 'New Color';
+        let counter = 1;
+
+        while (window.colorData[name]) {
+            name = `${baseName} ${counter}`;
+            counter++;
+        }
+
         const square = document.createElement('div');
         square.className = 'color-square';
         square.style.backgroundColor = color;
@@ -15,11 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         square.addEventListener('click', () => selectColorSquare(square));
 
-        const id = Date.now().toString();
-        square.dataset.id = id;
-        colorData[id] = { color, name };
-
+        window.colorData[name] = { color, name };
         colorGrid.appendChild(square);
+        return square;
     }
 
     function selectColorSquare(square) {
@@ -33,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function removeSelectedColorSquare() {
         if (selectedSquare && colorGrid.contains(selectedSquare)) {
-            delete colorData[selectedSquare.dataset.id];
+            delete window.colorData[selectedSquare.dataset.id];
             colorGrid.removeChild(selectedSquare);
             selectedSquare = null;
         }
@@ -45,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameInput = document.getElementById('modalColorName');
             picker.value = rgbToHex(selectedSquare.style.backgroundColor);
             nameInput.value = selectedSquare.title;
-            document.getElementById('colorModal').style.display = 'flex'; // Use 'flex' here
+            document.getElementById('colorModal').style.display = 'flex';
         }
     }
 
@@ -53,13 +59,38 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('colorModal').style.display = 'none';
     }
 
+    function updateAllTiles() {
+        const allTiles = document.querySelectorAll('.tile');
+        allTiles.forEach(tile => {
+            const tileId = tile.dataset.id;
+            if (window.tileData && window.tileData[tileId]) {
+                const canvas = tile.querySelector('canvas');
+                if (canvas) {
+                    window.renderTilePreview(tileId, canvas);
+                }
+            }
+        });
+
+        if (window.selectedTile) {
+            window.renderTileOnCanvas(window.selectedTile);
+        }
+    }
+
     document.getElementById('saveColor').addEventListener('click', () => {
         if (selectedSquare) {
             const picker = document.getElementById('modalColorPicker');
             const nameInput = document.getElementById('modalColorName');
+
+            if (window.colorData[nameInput.value] && nameInput.value !== selectedSquare.title) {
+                alert("Color name already exists. Choose a different name.");
+                return;
+            }
+
             selectedSquare.style.backgroundColor = picker.value;
             selectedSquare.title = nameInput.value || 'New Color';
-            colorData[selectedSquare.dataset.id] = { color: picker.value, name: nameInput.value };
+            window.colorData[selectedSquare.dataset.id] = { color: picker.value, name: nameInput.value };
+            updateAllTiles();
+            selectColorSquare(selectedSquare);
         }
         closeModal();
     });
@@ -70,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             colorGrid.removeChild(colorGrid.firstChild);
         }
 
-        colorData = {};
+        window.colorData = {};
     }
 
     document.querySelector('.close').addEventListener('click', closeModal);
@@ -81,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
     }
 
-    addColorSquare('#FFFFFF', 'New Color');
+    selectColorSquare(addColorSquare('#000000', 'Black'));
 
     document.getElementById('load-colors').addEventListener('click', () => {
         document.getElementById('file-input').click();
